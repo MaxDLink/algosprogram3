@@ -55,8 +55,28 @@ vector<Applicant> recursiveBestApplicant(const vector<Applicant>& applicants) {
 
 vector<int> BestApplicants(const vector<pair<float, float> >& applicants)
 {
-   vector<int> res;
+   //--original code here entered by professor Lin---
+   // vector<int> res;
 
-   return res;
+   // return res;
+
+   //--my code here---
+   int n = applicants.size();
+    // Convert the vector of pairs to a vector of Applicants
+    vector<Applicant> apps(n);
+    for (int i = 0; i < n; i++) {
+        apps[i].id = i;
+        apps[i].wpm = applicants[i].first;
+        apps[i].ipm = applicants[i].second;
+        apps[i].eligible = false;
+    }
+    // Run the recursive algorithm
+    vector<Applicant> eligible = recursiveBestApplicant(apps);
+    // Extract the IDs of the eligible candidates
+    vector<int> result;
+    for (int i = 0; i < eligible.size(); i++) {
+        result.push_back(eligible[i].id);
+    }
+    return result;
 }
 
